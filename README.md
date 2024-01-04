@@ -39,7 +39,7 @@
    2 ways to update immutable objects.
      1. Object.assign method. 
      2. Using spread operator.  
-        const employee = {name:"Harley",age:22,country:{city:"toronto",pincode:456778}}
+        <!-- const employee = {name:"Harley",age:22,country:{city:"toronto",pincode:456778}}
         const newEmp = {
          ...employee,
          name:"Martin"
@@ -47,10 +47,7 @@
         Immer Library to solve the immutability.(produce method)
         const newEmp = produce(employee,(draftState)=>{
          draftState.name='Martin",
-         draftState.country.city = "Calgary"
-
-
-        })
+         draftState.country.city = "Calgary"}) -->
 
 
 # Redux WorkFlow
