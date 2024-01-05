@@ -1,67 +1,35 @@
-//Action types
-const ADD_TASK = "ADD_TASK"
-const REMOVE_TASK = "REMOVE_TASK"
-const COMPLETED_TASK = "COMPLETED_TASK"
-
-
-
-// Actions
-
-
-export const addTask = (task) =>{
-return {type:ADD_TASK,payload:{task:task}}
-}
-
-export const removeTask = (id) =>{
-    return {
-        type:REMOVE_TASK,
-        payload:{id:id}
-    }
-}
-export const completedTask = (id)=>{
-    return {
-        type:COMPLETED_TASK,
-        payload:{
-            id:id
-        }
-    }
-}
-export const fetchTodo = () =>{
-    return async function(dispatch,getState){
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-        const task = await response.json()
-        dispatch(addTask(task.title))
-    }
-}
-
-// Reducers
-
+import { createSlice} from "@reduxjs/toolkit"
 
 let id = 0
-
-export default function reducer(state=[],action){
-    switch(action.type){
-        case ADD_TASK:
-            return [
-                ...state,
-                {
+const taskSlice = createSlice({
+    name:"Tasks",
+    initialState:[],
+    reducers:{
+        //action:function
+        addTask:(state,action) =>{
+            state.push({
                 id:++id,
                 task:action.payload.task,
                 completed:false
-                }
-
-            ]
-        case REMOVE_TASK:
-            return state.filter(item => item.id !== action.payload.id)
+            })
         
-        case COMPLETED_TASK:
-            return state.map((task) => task.id === action.payload.id ? {...task,completed:true} : task
-
-            )
-            
-            
-            
-        default:
-            return state
+        },
+        removeTask:(state,action) =>{
+            const index = state.findIndex(task=>task.id===action.payload.id)
+            state.splice(index,1)
+        },
+        completedTask:(state,action)=>{
+            const index = state.findIndex(task => task.id === action.payload.id)
+            state[index].completed = true
+        },
+        
     }
-}
+})
+// console.log(taskSlice)
+
+
+
+export const {addTask,completedTask,removeTask} = taskSlice.actions
+
+
+export const taskReducer = taskSlice.reducer

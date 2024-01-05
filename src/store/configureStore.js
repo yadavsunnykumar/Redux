@@ -1,8 +1,18 @@
 //Store Configuratioon
-import { legacy_createStore as createStore,applyMiddleware} from 'redux'
-import {thunk} from 'redux-thunk'
-import reducer from './task'
-const store = createStore(reducer,applyMiddleware(thunk))
+import { Tuple, configureStore } from '@reduxjs/toolkit'
+import {empReducer } from './employee'
+import {taskReducer} from './task'
+import error from '../middleware/error'
+import logger from 'redux-logger'
+
+
+const store = configureStore({
+    reducer:{
+    Tasks:taskReducer,
+    Employees:empReducer
+    },
+    middleware:(getDefaultMiddleware) =>  [...getDefaultMiddleware(),error]
+})
 
 
 

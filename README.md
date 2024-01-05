@@ -72,3 +72,9 @@ Duck Pattern
 In programming term, thunk is "a piece of code that does somne delay work"
 Rather than run the logic now, we can write code that can be used to perform the work later.
 Using Redux-Thunk middleware, we can write asynchronous/complex logic in Redux.
+
+##MiddleWare
+1 What is Midleware?
+ ---> Middleware is the function which run between the action and reducer.
+2 How to create own middleware?
+3 Middleware for logging actions
